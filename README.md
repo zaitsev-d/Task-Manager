@@ -1,2 +1,2 @@
 # Task-Manager
- Task-Manager for Windows.
+ Task manager for Windows on C#.
