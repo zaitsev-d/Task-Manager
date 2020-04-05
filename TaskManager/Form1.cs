@@ -16,6 +16,7 @@ namespace TaskManager
     public partial class Form1 : Form
     {
         private List<Process> processes = null;
+        private ListViewItemComparer comparer = null;
 
         public Form1()
         {
@@ -33,21 +34,6 @@ namespace TaskManager
             listView1.Items.Clear();
             double memorySize = default;
 
-            RealizeAllProcesses(memorySize);
-            Text = "Running processes: " + processes.Count.ToString();
-        }
-
-        private void RefreshProcessesList(List<Process> processes, string keyword)
-        {
-            listView1.Items.Clear();
-            double memorySize = default;
-
-            RealizeAllProcesses(memorySize);
-            Text = $"Running processes '{keyword}': " + processes.Count.ToString();
-        }
-
-        private void RealizeAllProcesses(double memorySize)
-        {
             foreach (Process p in processes)
             {
                 memorySize = default;
@@ -65,6 +51,41 @@ namespace TaskManager
                 performanceCounter.Close();
                 performanceCounter.Dispose();
             }
+
+            Text = "Running processes: " + processes.Count.ToString();
+        }
+
+        private void RefreshProcessesList(List<Process> processes, string keyword)
+        {
+            try
+            {
+                listView1.Items.Clear();
+                double memorySize = default;
+
+                foreach (Process p in processes)
+                {
+                    if (p != null)
+                    {
+                        memorySize = default;
+
+                        PerformanceCounter performanceCounter = new PerformanceCounter();
+                        performanceCounter.CategoryName = "Process";
+                        performanceCounter.CounterName = "Working Set - Private";
+                        performanceCounter.InstanceName = p.ProcessName;
+
+                        memorySize = (double)performanceCounter.NextValue() / (1000 * 1000);
+
+                        string[] row = new string[] { p.ProcessName.ToString(), Math.Round(memorySize, 1).ToString() };
+                        listView1.Items.Add(new ListViewItem(row));
+
+                        performanceCounter.Close();
+                        performanceCounter.Dispose();
+                    }
+                }
+
+                Text = $"Running processes '{keyword}': " + processes.Count.ToString();
+            }
+            catch(Exception) { }
         }
 
         private void KillProcess(Process process)
@@ -116,6 +137,9 @@ namespace TaskManager
         private void Form1_Load(object sender, EventArgs e)
         {
             processes = new List<Process>();
+            comparer = new ListViewItemComparer();
+            comparer.ColumnIndex = 0;
+
             GetProcesses();
             RefreshProcessesList();
         }
@@ -177,7 +201,7 @@ namespace TaskManager
             catch (Exception) { }
         }
 
-        private void completeTheProcessTreeToolStripMenuItem_Click(object sender, EventArgs e)
+        private void endTheProcessesTreeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
@@ -205,9 +229,28 @@ namespace TaskManager
             catch(Exception) { }
         }
 
+        private void toolStripTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            GetProcesses();
+
+            List<Process> filteredProcesses = processes.Where((x) => 
+            x.ProcessName.ToLower().Contains(toolStripTextBox1.Text.ToLower())).ToList<Process>();
+
+            RefreshProcessesList(filteredProcesses, toolStripTextBox1.Text);
+        }
+
+        private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            comparer.ColumnIndex = e.Column;
+            comparer.SortDirection = comparer.SortDirection == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
+
+            listView1.ListViewItemSorter = comparer;
+            listView1.Sort();
+        }
+
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            Application.Exit();
         }
     }
 }

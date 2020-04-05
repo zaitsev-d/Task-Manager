@@ -41,7 +41,7 @@
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.endTaskToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.completeTheProcessTreeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.endTheProcessesTreeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.listView1 = new System.Windows.Forms.ListView();
@@ -126,8 +126,8 @@
             this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
             this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(147, 24);
-            this.toolStripButton3.Text = "End the process tree";
+            this.toolStripButton3.Size = new System.Drawing.Size(161, 24);
+            this.toolStripButton3.Text = "End the processes tree";
             this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
             // 
             // toolStrip2
@@ -148,23 +148,23 @@
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.endTaskToolStripMenuItem,
-            this.completeTheProcessTreeToolStripMenuItem});
+            this.endTheProcessesTreeToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(213, 80);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(227, 52);
             // 
             // endTaskToolStripMenuItem
             // 
             this.endTaskToolStripMenuItem.Name = "endTaskToolStripMenuItem";
-            this.endTaskToolStripMenuItem.Size = new System.Drawing.Size(212, 24);
+            this.endTaskToolStripMenuItem.Size = new System.Drawing.Size(226, 24);
             this.endTaskToolStripMenuItem.Text = "End Task";
             this.endTaskToolStripMenuItem.Click += new System.EventHandler(this.endTaskToolStripMenuItem_Click);
             // 
-            // completeTheProcessTreeToolStripMenuItem
+            // endTheProcessesTreeToolStripMenuItem
             // 
-            this.completeTheProcessTreeToolStripMenuItem.Name = "completeTheProcessTreeToolStripMenuItem";
-            this.completeTheProcessTreeToolStripMenuItem.Size = new System.Drawing.Size(212, 24);
-            this.completeTheProcessTreeToolStripMenuItem.Text = "End the process tree";
-            this.completeTheProcessTreeToolStripMenuItem.Click += new System.EventHandler(this.completeTheProcessTreeToolStripMenuItem_Click);
+            this.endTheProcessesTreeToolStripMenuItem.Name = "endTheProcessesTreeToolStripMenuItem";
+            this.endTheProcessesTreeToolStripMenuItem.Size = new System.Drawing.Size(226, 24);
+            this.endTheProcessesTreeToolStripMenuItem.Text = "End the processes tree";
+            this.endTheProcessesTreeToolStripMenuItem.Click += new System.EventHandler(this.endTheProcessesTreeToolStripMenuItem_Click);
             // 
             // toolStripLabel1
             // 
@@ -177,6 +177,7 @@
             this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox1.Name = "toolStripTextBox1";
             this.toolStripTextBox1.Size = new System.Drawing.Size(100, 27);
+            this.toolStripTextBox1.TextChanged += new System.EventHandler(this.toolStripTextBox1_TextChanged);
             // 
             // listView1
             // 
@@ -195,6 +196,7 @@
             this.listView1.TabIndex = 3;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
+            this.listView1.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView1_ColumnClick);
             // 
             // columnHeader1
             // 
@@ -248,7 +250,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem endTaskToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem completeTheProcessTreeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem endTheProcessesTreeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem runNewTaskToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem quitToolStripMenuItem;
     }
